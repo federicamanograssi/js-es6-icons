@@ -97,36 +97,80 @@ const list = [
 		family: 'fas'
 	}
 ];
-
-// Milestone 1
-// Partendo dalla struttura dati che troviamo sotto, mostriamo in pagina tutte le icone disponibili come da layout.
+console.log(list);
+// Milestone 1 :Partendo dalla struttura dati che troviamo sotto, mostriamo in pagina tutte le icone disponibili come da layout.
 
 //01.1 identifichiamo dove andranno inserite le icone
 const container = $('.icons_container');
 
-// 01.2 andiamo a creare le nostre icone coun un ciclo for all'interno dell'array(vedi giù per la funzione)
+// 01.2 andiamo a creare le nostre icone coun un ciclo for all'interno dell'array(vedi riga 132 per funzionamento, riga 139 per funzione)
 
-print(list,container);
+// printIcons(list,container);   s
 
+// _______________________________________________
+// Milestone 2 : Coloriamo le icone per tipo
+
+// 02.1 creo un array con i TYPES di icone
+const typeArray = [];
+getIconTypes(list,typeArray);                                 //riga 158
+console.log(typeArray)
+
+// 02.2 creo un array COLORI
+const colorsTypes =[
+	'blue',
+	'orange',
+	'green'
+];
+console.log(colorsTypes);
+
+// 02.3  aggiungo proprietà color a icone
+
+giveIconColorByTypes(list,typeArray,colorsTypes);           //riga 168
+console.log(list);
+
+
+printIcons(list,container);
 });
 
 
-// ____________________
+// _______________________________________________________________________________
 //FUNCTIONS
 
 // 01.2 FUNCTION PER STAMPARE ICONE
-function print(array,container){
+function printIcons(array,container){
 	array.forEach((icon) =>{
-		const {name,prefix,family} = icon;
-	
+		// definisco la mia icona
+		const {name,prefix,family,color} = icon;
+		
+		// blocco icona da inserire all'interno dell'html
 		const iconHTML =`
-		<div>
-			<i class="${family} ${prefix}${name}"></i>
-			<div>${name}</div>
+		<div class="box-icon">
+			<i class="${family} ${prefix}${name}" style="color:${color}"></i>
+			<div class="icon-title">${name}</div>
 		</div>
 		`;
 	
 		container.append(iconHTML);
 	})
 
+}
+
+function getIconTypes(array,destinationArray){
+	array.forEach((icon)=>{
+		const {type} = icon;
+		if(!destinationArray.includes(type)){
+			destinationArray.push(type);
+		}
+	})
+
+}
+
+function giveIconColorByTypes(array,typeArray,colorArray){
+	array.forEach((icon) =>{
+		for (let i = 0; i < array.length; i++){
+			if (icon.type === typeArray[i]){
+				icon.color = colorArray[i]
+			}
+		}	
+	})
 }
