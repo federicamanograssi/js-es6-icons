@@ -150,8 +150,7 @@ $(document).ready(function () {
 	// stampo le icone in base al filtro
 
 
-	filterTypeOptions.change({ container }, function (event) {
-		const container = event.data.container;
+	filterTypeOptions.change(function (event) {
 		const optionSelected = $(this).val();
 
 		//creo l'array da stampare se tipo=opzione
